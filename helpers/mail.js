@@ -2,7 +2,6 @@ import nodemailer from "nodemailer";
 import config from 'config';
 
    const  sendMail = async(obj) =>{
-    console.log('obj here', obj)
       return new Promise(async (resolve, reject) => {
         try {
           const transporter= nodemailer.createTransport({
@@ -19,8 +18,8 @@ import config from 'config';
             from: '"Test User" testuser@gmail.com', // sender address
             to: obj.email,
             subject: 'OTP',
-            html: `<b>OTP-  ${obj.email}</b><br>
-                  <b>OTP-  ${obj.otp}</b>`,
+            html: `<b>Email - ${obj.email}</b><br>
+                  <b>OTP - ${obj.otp}</b>`,
           };
           const info = await transporter.sendMail(mailOptions);
           if (!info.messageId) return resolve({ status: false })

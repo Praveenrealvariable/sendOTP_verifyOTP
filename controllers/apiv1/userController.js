@@ -33,7 +33,7 @@ const sendOTP = async (req, res, next) => {
             err.statusCode = 400;
             throw err
         }
-        let otpDetails = otpModel.create({ ...otp, messageId: sendEmail.messageId })
+        let otpDetails = await otpModel.create({ ...otp, messageId: sendEmail.messageId })
         res.status(201).send({ status: true, message: "OTP sucessfully sent to email" })
     } catch (error) {
         console.log(error)
@@ -59,7 +59,7 @@ const verifyOTP = async (req, res, next) => {
             throw err
         }
         const otpDetails = await otpModel.findOne({
-            email: req.body.email,
+            email: otpData.email,
             otp: req.body.otp,
         });
         if (otpDetails) {
